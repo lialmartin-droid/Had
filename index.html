@@ -1,10 +1,10 @@
 <!doctype html>
 <html lang="cs">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-  <title>Nokia Had</title>
-  <link rel="stylesheet" href="styles.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Nokia Had</title>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <main class="phone">
@@ -21,22 +21,18 @@
 
       <div class="overlay" id="overlay">
         <h1>HAD</h1>
-        <p>Vyber si svého hada</p>
-
-        <div class="snake-picker">
-          <button class="skin active" data-skin="green" title="Zelený"></button>
-          <button class="skin yellow" data-skin="yellow" title="Žlutý"></button>
-          <button class="skin red" data-skin="red" title="Červený"></button>
-          <button class="skin blue" data-skin="blue" title="Modrý"></button>
-          <button class="skin orange" data-skin="orange" title="Oranžový"></button>
-          <button class="skin custom" id="customBtn" title="Vlastní">+</button>
+        <p>Vyber si barvy kroužkování</p>
+        <div class="colors">
+          <label>Barva 1<input type="color" id="colorA" value="#21a83f"></label>
+          <label>Barva 2<input type="color" id="colorB" value="#d3b832"></label>
         </div>
-
-        <div id="customPanel" class="custom-panel hidden">
-          <label>Barva těla <input type="color" id="mainColor" value="#4e9f32"></label>
-          <label>Barva vzoru <input type="color" id="patternColor" value="#172b13"></label>
+        <div class="presets">
+          <button class="preset p1" data-a="#21a83f" data-b="#d3b832"></button>
+          <button class="preset p2" data-a="#2f9e44" data-b="#152915"></button>
+          <button class="preset p3" data-a="#d44732" data-b="#24110d"></button>
+          <button class="preset p4" data-a="#3779c7" data-b="#101d30"></button>
+          <button class="preset p5" data-a="#e37c24" data-b="#2c1608"></button>
         </div>
-
         <button class="start" id="start">SPUSTIT</button>
       </div>
     </div>
@@ -47,14 +43,12 @@
       <button class="soft" id="pause">PAUZA</button>
       <button class="soft" id="restart">NOVÁ HRA</button>
     </div>
-
     <div class="dpad">
       <button class="key up" data-d="up">▲</button>
       <button class="key left" data-d="left">◀</button>
       <button class="key right" data-d="right">▶</button>
       <button class="key down" data-d="down">▼</button>
     </div>
-
     <div class="hint">Had prochází zdmi. Konec je jen při nárazu do sebe.</div>
   </section>
 </main>

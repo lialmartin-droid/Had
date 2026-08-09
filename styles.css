@@ -8,19 +8,16 @@ body{display:flex;justify-content:center;align-items:center;padding:8px}
 .screen{width:100%;aspect-ratio:1;background:#9dad75;border:5px solid #31332c;position:relative;overflow:hidden;box-shadow:inset 0 0 22px #34422155}
 canvas{width:100%;height:100%;display:block}
 .hud{position:absolute;left:7px;right:7px;top:5px;display:flex;justify-content:space-between;font:900 13px "Courier New";color:#1f2b17;pointer-events:none}
-.overlay{position:absolute;inset:0;background:#9dad75f2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:#1f2b17;font-family:"Courier New";text-align:center;padding:14px}
+.overlay{position:absolute;inset:0;background:#9dad75f2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:11px;color:#1f2b17;font-family:"Courier New";text-align:center;padding:14px}
 .overlay.hidden{display:none}.overlay h1{font-size:31px;margin:0}.overlay p{margin:0;font-weight:bold}
 .start{padding:9px 20px;border:3px solid #1f2b17;background:transparent;color:#1f2b17;font:bold 16px "Courier New"}
-.snake-picker{display:grid;grid-template-columns:repeat(6,1fr);gap:7px;width:min(310px,100%)}
-.skin{height:34px;border:3px solid #33411f;border-radius:9px;background:repeating-linear-gradient(90deg,#4e9f32 0 11px,#173516 11px 18px)}
-.skin.active{outline:3px solid #1f2b17;outline-offset:2px}
-.skin.yellow{background:repeating-linear-gradient(90deg,#d4b62f 0 11px,#15170d 11px 18px)}
-.skin.red{background:repeating-linear-gradient(90deg,#cb3f2c 0 11px,#21100e 11px 18px)}
-.skin.blue{background:repeating-linear-gradient(90deg,#3c78c7 0 11px,#101b2b 11px 18px)}
-.skin.orange{background:repeating-linear-gradient(90deg,#de7b24 0 11px,#29170c 11px 18px)}
-.skin.custom{background:#bfd184;font-size:24px;font-weight:900;color:#1f2b17}
-.custom-panel{display:flex;gap:14px;font-size:11px;font-weight:bold}.custom-panel.hidden{display:none}
-.custom-panel label{display:flex;flex-direction:column;gap:3px}.custom-panel input{width:56px;height:30px;border:2px solid #33411f}
+.colors{display:flex;gap:18px}.colors label{display:flex;flex-direction:column;gap:4px;font-size:11px;font-weight:bold}.colors input{width:58px;height:34px;border:2px solid #33411f}
+.presets{display:flex;gap:7px}.preset{width:42px;height:30px;border:2px solid #33411f;border-radius:8px}
+.p1{background:repeating-linear-gradient(90deg,#21a83f 0 10px,#d3b832 10px 20px)}
+.p2{background:repeating-linear-gradient(90deg,#2f9e44 0 10px,#152915 10px 20px)}
+.p3{background:repeating-linear-gradient(90deg,#d44732 0 10px,#24110d 10px 20px)}
+.p4{background:repeating-linear-gradient(90deg,#3779c7 0 10px,#101d30 10px 20px)}
+.p5{background:repeating-linear-gradient(90deg,#e37c24 0 10px,#2c1608 10px 20px)}
 .controls{width:100%;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:space-around;min-height:300px}
 .softkeys{width:88%;display:flex;justify-content:space-between}
 .soft{width:100px;height:34px;border:0;border-radius:17px;background:linear-gradient(#eeeede,#bdbdb1);box-shadow:0 5px #68685f;font-weight:bold}
@@ -29,4 +26,4 @@ canvas{width:100%;height:100%;display:block}
 .key:active,.soft:active{transform:translateY(4px);box-shadow:0 2px #6f6f65}
 .up{left:129px;top:0}.down{left:129px;bottom:0}.left{left:18px;top:79px}.right{right:18px;top:79px}
 .hint{font-size:10px;font-weight:bold;color:#44443d;text-align:center;max-width:330px}
-@media(max-height:730px){.phone{padding:6px 15px;gap:3px}.screen-shell{padding:6px}.controls{min-height:225px}.dpad{transform:scale(.82);margin:-16px 0}.soft{height:29px}.hint{font-size:9px}.overlay{gap:6px;padding:8px}.skin{height:28px}}
+@media(max-height:730px){.phone{padding:6px 15px;gap:3px}.screen-shell{padding:6px}.controls{min-height:225px}.dpad{transform:scale(.82);margin:-16px 0}.soft{height:29px}.hint{font-size:9px}.overlay{gap:7px;padding:8px}}
