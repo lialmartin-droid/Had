@@ -1,0 +1,26 @@
+{
+  "name": "Nokia Had",
+  "short_name": "Had",
+  "description": "Klasický had s postupným růstem, režimy a statistikami.",
+  "lang": "cs",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#151515",
+  "theme_color": "#a9bd7a",
+  "icons": [
+    {
+      "src": "assets/icons/snake-icon-192.png?v=800-20260902",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icons/snake-icon-512.png?v=800-20260902",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

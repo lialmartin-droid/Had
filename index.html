@@ -1,170 +1,138 @@
 <!doctype html>
 <html lang="cs">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>Nokia Had</title>
-<style>
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#151515;font-family:Arial,sans-serif}
-body{display:flex;justify-content:center;align-items:center;padding:8px}
-.phone{width:min(430px,97vw);height:min(840px,98vh);padding:10px 20px 14px;border:4px solid #77776c;border-radius:42px 42px 60px 60px;background:linear-gradient(145deg,#d2d2c4,#99998d);box-shadow:0 20px 50px #0009;display:flex;flex-direction:column;align-items:center;gap:5px}
-.speaker{width:90px;height:8px;background:#494943;border-radius:8px}
-.brand{font-size:20px;font-weight:900;letter-spacing:4px}
-.screen-shell{width:100%;background:#50504b;border-radius:20px 20px 30px 30px;padding:9px}
-.screen{
-  width:100%;
-  background:#9dad75;
-  border:5px solid #31332c;
-  position:relative;
-  overflow:hidden;
-  box-shadow:inset 0 0 22px #34422155;
-  display:flex;
-  flex-direction:column
-}
-.playfield{
-  width:100%;
-  aspect-ratio:420/378;
-  position:relative;
-  overflow:hidden;
-  background:linear-gradient(#aabd7d,#8fa667)
-}
-canvas{width:100%;height:100%;display:block}
-.hud{
-  position:relative;
-  z-index:3;
-  height:34px;
-  flex:0 0 34px;
-  padding:7px 9px 5px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  font:900 13px "Courier New";
-  color:#1f2b17;
-  background:linear-gradient(#afc081,#a4b778);
-  border-bottom:2px solid rgba(31,43,23,.35);
-  pointer-events:none
-}
-.overlay{position:absolute;z-index:10;inset:0;background:#9dad75f2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:11px;color:#1f2b17;font-family:"Courier New";text-align:center;padding:14px}
-.overlay.hidden{display:none}.overlay h1{font-size:31px;margin:0}.overlay p{margin:0;font-weight:bold}
-.start{padding:9px 20px;border:3px solid #1f2b17;background:transparent;color:#1f2b17;font:bold 16px "Courier New"}
-.colors{display:flex;gap:18px}.colors label{display:flex;flex-direction:column;gap:4px;font-size:11px;font-weight:bold}.colors input{width:58px;height:34px;border:2px solid #33411f}
-.presets{display:flex;gap:7px}.preset{width:42px;height:30px;border:2px solid #33411f;border-radius:8px}
-.p1{background:repeating-linear-gradient(90deg,#21a83f 0 10px,#d3b832 10px 20px)}
-.p2{background:repeating-linear-gradient(90deg,#2f9e44 0 10px,#152915 10px 20px)}
-.p3{background:repeating-linear-gradient(90deg,#d44732 0 10px,#24110d 10px 20px)}
-.p4{background:repeating-linear-gradient(90deg,#3779c7 0 10px,#101d30 10px 20px)}
-.p5{background:repeating-linear-gradient(90deg,#e37c24 0 10px,#2c1608 10px 20px)}
-.controls{width:100%;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:space-around;min-height:300px}
-.softkeys{width:88%;display:flex;justify-content:space-between}
-.soft{width:100px;height:34px;border:0;border-radius:17px;background:linear-gradient(#eeeede,#bdbdb1);box-shadow:0 5px #68685f;font-weight:bold}
-.dpad{width:330px;height:230px;position:relative}
-.key{position:absolute;width:72px;height:72px;border:0;border-radius:20px;background:linear-gradient(145deg,#ececdf,#b5b5a9);box-shadow:0 6px #6f6f65;color:#37372f;font-size:29px;font-weight:900;touch-action:manipulation}
-.key:active,.soft:active{transform:translateY(4px);box-shadow:0 2px #6f6f65}
-.up{left:129px;top:0}.down{left:129px;bottom:0}.left{left:18px;top:79px}.right{right:18px;top:79px}
-.hint{font-size:10px;font-weight:bold;color:#44443d;text-align:center;max-width:330px}
-@media(max-height:730px){.phone{padding:6px 15px;gap:3px}.screen-shell{padding:6px}.controls{min-height:225px}.dpad{transform:scale(.82);margin:-16px 0}.soft{height:29px}.hint{font-size:9px}.overlay{gap:7px;padding:8px}}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+  <meta name="theme-color" content="#a9bd7a">
+  <meta name="description" content="Klasický Nokia Had v moderním mobilním provedení.">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Had">
+  <title>Nokia Had</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/snake-icon-32.png?v=800-20260902">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/snake-icon-180.png?v=800-20260902">
+  <link rel="manifest" href="manifest.webmanifest?v=800-20260902">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<main class="phone">
-  <div class="speaker"></div>
-  <div class="brand">NOKIA</div>
+  <main class="phone" aria-label="Nokia Had">
+    <div class="speaker" aria-hidden="true"></div>
+    <div class="brand">NOKIA</div>
 
-  <section class="screen-shell">
-    <div class="screen">
-      <div class="hud">
-        <span>SKÓRE: <b id="score">0</b></span>
-        <span>REKORD: <b id="high">0</b></span>
-      </div>
-      <div class="playfield">
-        <canvas id="game" width="420" height="378"></canvas>
-      </div>
-
-      <div class="overlay" id="overlay">
-        <h1>HAD</h1>
-        <p>Vyber si barvy kroužkování</p>
-        <div class="colors">
-          <label>Barva 1<input type="color" id="colorA" value="#21a83f"></label>
-          <label>Barva 2<input type="color" id="colorB" value="#d3b832"></label>
+    <section class="screen-shell">
+      <div class="screen">
+        <div class="hud" aria-live="polite">
+          <span>SKÓRE <b id="score">0</b></span>
+          <span id="middleHud">ÚROVEŇ <b id="level">1</b></span>
+          <span>REKORD <b id="high">0</b></span>
         </div>
-        <div class="presets">
-          <button class="preset p1" data-a="#21a83f" data-b="#d3b832"></button>
-          <button class="preset p2" data-a="#2f9e44" data-b="#152915"></button>
-          <button class="preset p3" data-a="#d44732" data-b="#24110d"></button>
-          <button class="preset p4" data-a="#3779c7" data-b="#101d30"></button>
-          <button class="preset p5" data-a="#e37c24" data-b="#2c1608"></button>
+
+        <div class="playfield" id="playfield">
+          <canvas id="game" width="420" height="378" aria-label="Herní plocha"></canvas>
+          <div class="game-message" id="gameMessage" aria-live="polite"></div>
+          <div class="combo" id="combo" aria-live="polite"></div>
         </div>
-        <button class="start" id="start">SPUSTIT</button>
+
+        <div class="overlay" id="overlay">
+          <section class="menu-view active" data-view="play">
+            <div class="title-mark" aria-hidden="true">
+              <span class="pixel-snake"></span>
+            </div>
+            <h1>HAD</h1>
+            <p class="intro">Začínáš pouze hlavou. Každé sousto tě prodlouží.</p>
+
+            <div class="mode-grid" role="group" aria-label="Herní režim">
+              <button class="mode selected" data-mode="classic">
+                <b>KLASIKA</b><small>Průchod zdmi</small>
+              </button>
+              <button class="mode" data-mode="survival">
+                <b>SURVIVAL</b><small>Přibývají překážky</small>
+              </button>
+              <button class="mode" data-mode="time">
+                <b>ČASOVKA</b><small>2 minuty</small>
+              </button>
+              <button class="mode" data-mode="daily">
+                <b>DENNÍ VÝZVA</b><small id="dailyLabel">Dnešní mapa</small>
+              </button>
+            </div>
+
+            <button class="primary" id="start">SPUSTIT</button>
+          </section>
+
+          <section class="menu-view" data-view="look">
+            <h2>VZHLED HADA</h2>
+            <p class="compact-copy">Vyber kroužkování. Volba se uloží.</p>
+            <div class="colors">
+              <label>BARVA 1<input type="color" id="colorA" value="#21a83f"></label>
+              <label>BARVA 2<input type="color" id="colorB" value="#d3b832"></label>
+            </div>
+            <div class="presets" aria-label="Předvolby barev">
+              <button class="preset p1" data-a="#21a83f" data-b="#d3b832" aria-label="Zelenožlutý had"></button>
+              <button class="preset p2" data-a="#2f9e44" data-b="#152915" aria-label="Zelenočerný had"></button>
+              <button class="preset p3" data-a="#d44732" data-b="#24110d" aria-label="Červený had"></button>
+              <button class="preset p4" data-a="#3779c7" data-b="#101d30" aria-label="Modrý had"></button>
+              <button class="preset p5" data-a="#e37c24" data-b="#2c1608" aria-label="Oranžový had"></button>
+            </div>
+            <div class="snake-preview" id="snakePreview" aria-label="Náhled hada"></div>
+          </section>
+
+          <section class="menu-view" data-view="stats">
+            <h2>STATISTIKY</h2>
+            <div class="stats-grid">
+              <div><small>HER</small><b id="statGames">0</b></div>
+              <div><small>SNĚDENO</small><b id="statFood">0</b></div>
+              <div><small>NEJDELŠÍ HAD</small><b id="statLength">1</b></div>
+              <div><small>NEJLEPŠÍ KOMBO</small><b id="statCombo">1×</b></div>
+            </div>
+            <div class="mission" id="mission">
+              <span>MISE</span>
+              <b id="missionText">Sněz 10 soust v jedné hře</b>
+              <div class="mission-track"><i id="missionProgress"></i></div>
+            </div>
+          </section>
+
+          <section class="menu-view" data-view="over">
+            <h2 id="overTitle">KONEC HRY</h2>
+            <div class="end-score">
+              <small>SKÓRE</small>
+              <strong id="finalScore">0</strong>
+              <span id="newRecord">REKORD 0</span>
+            </div>
+            <div class="end-details">
+              <span>DÉLKA <b id="finalLength">1</b></span>
+              <span>SNĚDENO <b id="finalFood">0</b></span>
+              <span>KOMBO <b id="finalCombo">1×</b></span>
+            </div>
+            <div class="end-actions">
+              <button class="primary" id="again">ZNOVU</button>
+              <button class="secondary" id="backToMenu">MENU</button>
+            </div>
+          </section>
+
+          <nav class="menu-tabs" aria-label="Nabídka">
+            <button class="tab active" data-target="play">HRÁT</button>
+            <button class="tab" data-target="look">VZHLED</button>
+            <button class="tab" data-target="stats">STATISTIKY</button>
+          </nav>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="controls">
-    <div class="softkeys">
-      <button class="soft" id="pause">PAUZA</button>
-      <button class="soft" id="restart">NOVÁ HRA</button>
-    </div>
-    <div class="dpad">
-      <button class="key up" data-d="up">▲</button>
-      <button class="key left" data-d="left">◀</button>
-      <button class="key right" data-d="right">▶</button>
-      <button class="key down" data-d="down">▼</button>
-    </div>
-    <div class="hint">Had prochází zdmi. Konec je jen při nárazu do sebe.</div>
-  </section>
-</main>
-<script>
-(()=>{
-const c=document.getElementById("game"),x=c.getContext("2d"),scoreE=document.getElementById("score"),highE=document.getElementById("high"),ov=document.getElementById("overlay");
-const COLS=30,ROWS=27,C=c.width/COLS;
-let snake,dir,next,food,score=0,high=+(localStorage.nokiaSnakeHigh||0),run=false,paused=false,timer,speed=420;
-let colorA=localStorage.snakeColorA||"#21a83f",colorB=localStorage.snakeColorB||"#d3b832";
-const aI=document.getElementById("colorA"),bI=document.getElementById("colorB");
-aI.value=colorA;bI.value=colorB;highE.textContent=high;
-
-function shade(hex,amt){const n=parseInt(hex.slice(1),16),r=Math.max(0,Math.min(255,(n>>16)+amt)),g=Math.max(0,Math.min(255,((n>>8)&255)+amt)),b=Math.max(0,Math.min(255,(n&255)+amt));return `rgb(${r},${g},${b})`}
-function reset(){snake=[{x:15,y:13,bulge:0},{x:14,y:13,bulge:0},{x:13,y:13,bulge:0},{x:12,y:13,bulge:0}];dir={x:1,y:0};next={...dir};score=0;speed=420;scoreE.textContent=0;placeFood();draw()}
-function placeFood(){do{food={x:1+Math.floor(Math.random()*(COLS-2)),y:1+Math.floor(Math.random()*(ROWS-2))}}while(snake.some(p=>p.x===food.x&&p.y===food.y))}
-function start(){reset();run=true;paused=false;ov.classList.add("hidden");document.getElementById("pause").textContent="PAUZA";loop()}
-function loop(){clearInterval(timer);timer=setInterval(tick,speed)}
-function tick(){if(!run||paused)return;dir=next;const h={x:(snake[0].x+dir.x+COLS)%COLS,y:(snake[0].y+dir.y+ROWS)%ROWS,bulge:0};const eat=h.x===food.x&&h.y===food.y,check=eat?snake:snake.slice(0,-1);if(check.some(p=>p.x===h.x&&p.y===h.y))return over();snake.unshift(h);if(eat){snake[0].bulge=1;score+=10;scoreE.textContent=score;placeFood();const ns=Math.max(115,420-Math.floor(score/50)*18);if(ns!==speed){speed=ns;loop()}}else snake.pop();draw()}
-function over(){run=false;clearInterval(timer);if(score>high){high=score;localStorage.nokiaSnakeHigh=high;highE.textContent=high}ov.innerHTML=`<h1>KONEC</h1><p>Skóre: ${score}</p><p>Rekord: ${high}</p><button class="start" id="again">ZNOVU</button>`;ov.classList.remove("hidden");document.getElementById("again").onclick=start}
-function draw(){const bg=x.createLinearGradient(0,0,0,c.height);bg.addColorStop(0,"#aabd7d");bg.addColorStop(1,"#8fa667");x.fillStyle=bg;x.fillRect(0,0,c.width,c.height);drawFood();for(let i=snake.length-1;i>=0;i--)drawPart(snake[i],i);drawHead()}
-function drawFood(){
-  const cx=food.x*C+C/2,cy=food.y*C+C/2,r=C*.40;
-  x.save();
-  x.shadowColor="rgba(255,255,255,.75)";
-  x.shadowBlur=C*.28;
-  const g=x.createRadialGradient(cx-r*.35,cy-r*.38,1,cx,cy,r);
-  g.addColorStop(0,"#fff7b0");
-  g.addColorStop(.18,"#ff6d55");
-  g.addColorStop(.55,"#e12819");
-  g.addColorStop(1,"#681006");
-  x.fillStyle=g;
-  x.beginPath();
-  x.arc(cx,cy,r,0,Math.PI*2);
-  x.fill();
-  x.shadowBlur=0;
-  x.strokeStyle="#24130d";
-  x.lineWidth=Math.max(1.5,C*.10);
-  x.stroke();
-  x.fillStyle="#fff";
-  x.beginPath();
-  x.arc(cx-r*.25,cy-r*.28,r*.14,0,Math.PI*2);
-  x.fill();
-  x.restore();
-}
-function drawPart(p,i){const baseColor=i%2===0?colorA:colorB,cx=p.x*C+C/2,cy=p.y*C+C/2,r=C*.39*(p.bulge?1.48:1),g=x.createRadialGradient(cx-r*.3,cy-r*.3,1,cx,cy,r);g.addColorStop(0,shade(baseColor,55));g.addColorStop(.55,baseColor);g.addColorStop(1,shade(baseColor,-65));x.fillStyle=g;x.beginPath();x.arc(cx,cy,r,0,Math.PI*2);x.fill();x.strokeStyle="rgba(0,0,0,.25)";x.stroke()}
-function drawHead(){const h=snake[0],cx=h.x*C+C/2,cy=h.y*C+C/2,a=Math.atan2(dir.y,dir.x),rx=C*.57,ry=C*.44,g=x.createRadialGradient(-rx*.2,-ry*.2,1,0,0,rx);x.save();x.translate(cx,cy);x.rotate(a);g.addColorStop(0,shade(colorA,55));g.addColorStop(.6,colorA);g.addColorStop(1,shade(colorA,-70));x.fillStyle=g;x.beginPath();x.ellipse(0,0,rx,ry,0,0,Math.PI*2);x.fill();x.fillStyle="#f5f2d5";for(const sy of[-1,1]){x.beginPath();x.arc(rx*.22,sy*ry*.48,C*.10,0,Math.PI*2);x.fill()}x.fillStyle="#111";for(const sy of[-1,1]){x.beginPath();x.arc(rx*.27,sy*ry*.48,C*.052,0,Math.PI*2);x.fill()}x.strokeStyle="#b51d22";x.lineWidth=1.2;x.beginPath();x.moveTo(rx*.82,0);x.lineTo(rx*1.2,0);x.lineTo(rx*1.37,-C*.09);x.moveTo(rx*1.2,0);x.lineTo(rx*1.37,C*.09);x.stroke();x.restore()}
-function setD(name){const d={up:{x:0,y:-1},down:{x:0,y:1},left:{x:-1,y:0},right:{x:1,y:0}}[name];if(!d||d.x===-dir.x&&d.y===-dir.y)return;next=d}
-document.querySelectorAll("[data-d]").forEach(btn=>btn.onpointerdown=e=>{e.preventDefault();setD(btn.dataset.d)});
-document.onkeydown=e=>{const k=e.key.toLowerCase();if(k==="arrowup"||k==="w")setD("up");if(k==="arrowdown"||k==="s")setD("down");if(k==="arrowleft"||k==="a")setD("left");if(k==="arrowright"||k==="d")setD("right")};
-document.getElementById("start").onclick=start;document.getElementById("restart").onclick=start;document.getElementById("pause").onclick=()=>{if(!run)return start();paused=!paused;document.getElementById("pause").textContent=paused?"POKRAČOVAT":"PAUZA"};
-aI.oninput=()=>{colorA=aI.value;localStorage.snakeColorA=colorA;draw()};bI.oninput=()=>{colorB=bI.value;localStorage.snakeColorB=colorB;draw()};
-document.querySelectorAll(".preset").forEach(btn=>btn.onclick=()=>{colorA=btn.dataset.a;colorB=btn.dataset.b;aI.value=colorA;bI.value=colorB;localStorage.snakeColorA=colorA;localStorage.snakeColorB=colorB;draw()});
-reset();
-})();
-</script>
+    <section class="controls" aria-label="Ovládání hry">
+      <div class="softkeys">
+        <button class="soft" id="pause">PAUZA</button>
+        <button class="soft" id="restart">NOVÁ HRA</button>
+      </div>
+      <div class="dpad" aria-label="Směr hada">
+        <button class="key up" data-d="up" aria-label="Nahoru">▲</button>
+        <button class="key left" data-d="left" aria-label="Doleva">◀</button>
+        <button class="key right" data-d="right" aria-label="Doprava">▶</button>
+        <button class="key down" data-d="down" aria-label="Dolů">▼</button>
+      </div>
+      <div class="hint">Šipky, WASD nebo přejetí po displeji · Had prochází okrajem</div>
+    </section>
+  </main>
+  <script src="game.js"></script>
 </body>
 </html>
