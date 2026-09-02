@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+  <meta name="theme-color" content="#a9bd7a">
+  <meta name="description" content="Klasický Nokia Had v moderním mobilním provedení.">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Had">
+  <title>Nokia Had</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/snake-icon-32.png?v=800-20260902">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/snake-icon-180.png?v=800-20260902">
+  <link rel="manifest" href="manifest.webmanifest?v=800-20260902">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="phone" aria-label="Nokia Had">
+    <div class="speaker" aria-hidden="true"></div>
+    <div class="brand">NOKIA</div>
+
+    <section class="screen-shell">
+      <div class="screen">
+        <div class="hud" aria-live="polite">
+          <span>SKÓRE <b id="score">0</b></span>
+          <span id="middleHud">ÚROVEŇ <b id="level">1</b></span>
+          <span>REKORD <b id="high">0</b></span>
+        </div>
+
+        <div class="playfield" id="playfield">
+          <canvas id="game" width="420" height="378" aria-label="Herní plocha"></canvas>
+          <div class="game-message" id="gameMessage" aria-live="polite"></div>
+          <div class="combo" id="combo" aria-live="polite"></div>
+        </div>
+
+        <div class="overlay" id="overlay">
+          <section class="menu-view active" data-view="play">
+            <div class="title-mark" aria-hidden="true">
+              <span class="pixel-snake"></span>
+            </div>
+            <h1>HAD</h1>
+            <p class="intro">Začínáš pouze hlavou. Každé sousto tě prodlouží.</p>
+
+            <div class="mode-grid" role="group" aria-label="Herní režim">
+              <button class="mode selected" data-mode="classic">
+                <b>KLASIKA</b><small>Průchod zdmi</small>
+              </button>
+              <button class="mode" data-mode="survival">
+                <b>SURVIVAL</b><small>Přibývají překážky</small>
+              </button>
+              <button class="mode" data-mode="time">
+                <b>ČASOVKA</b><small>2 minuty</small>
+              </button>
+              <button class="mode" data-mode="daily">
+                <b>DENNÍ VÝZVA</b><small id="dailyLabel">Dnešní mapa</small>
+              </button>
+            </div>
+
+            <button class="primary" id="start">SPUSTIT</button>
+          </section>
+
+          <section class="menu-view" data-view="look">
+            <h2>VZHLED HADA</h2>
+            <p class="compact-copy">Vyber kroužkování. Volba se uloží.</p>
+            <div class="colors">
+              <label>BARVA 1<input type="color" id="colorA" value="#21a83f"></label>
+              <label>BARVA 2<input type="color" id="colorB" value="#d3b832"></label>
+            </div>
+            <div class="presets" aria-label="Předvolby barev">
+              <button class="preset p1" data-a="#21a83f" data-b="#d3b832" aria-label="Zelenožlutý had"></button>
+              <button class="preset p2" data-a="#2f9e44" data-b="#152915" aria-label="Zelenočerný had"></button>
+              <button class="preset p3" data-a="#d44732" data-b="#24110d" aria-label="Červený had"></button>
+              <button class="preset p4" data-a="#3779c7" data-b="#101d30" aria-label="Modrý had"></button>
+              <button class="preset p5" data-a="#e37c24" data-b="#2c1608" aria-label="Oranžový had"></button>
+            </div>
+            <div class="snake-preview" id="snakePreview" aria-label="Náhled hada"></div>
+          </section>
+
+          <section class="menu-view" data-view="stats">
+            <h2>STATISTIKY</h2>
+            <div class="stats-grid">
+              <div><small>HER</small><b id="statGames">0</b></div>
+              <div><small>SNĚDENO</small><b id="statFood">0</b></div>
+              <div><small>NEJDELŠÍ HAD</small><b id="statLength">1</b></div>
+              <div><small>NEJLEPŠÍ KOMBO</small><b id="statCombo">1×</b></div>
+            </div>
+            <div class="mission" id="mission">
+              <span>MISE</span>
+              <b id="missionText">Sněz 10 soust v jedné hře</b>
+              <div class="mission-track"><i id="missionProgress"></i></div>
+            </div>
+          </section>
+
+          <section class="menu-view" data-view="over">
+            <h2 id="overTitle">KONEC HRY</h2>
+            <div class="end-score">
+              <small>SKÓRE</small>
+              <strong id="finalScore">0</strong>
+              <span id="newRecord">REKORD 0</span>
+            </div>
+            <div class="end-details">
+              <span>DÉLKA <b id="finalLength">1</b></span>
+              <span>SNĚDENO <b id="finalFood">0</b></span>
+              <span>KOMBO <b id="finalCombo">1×</b></span>
+            </div>
+            <div class="end-actions">
+              <button class="primary" id="again">ZNOVU</button>
+              <button class="secondary" id="backToMenu">MENU</button>
+            </div>
+          </section>
+
+          <nav class="menu-tabs" aria-label="Nabídka">
+            <button class="tab active" data-target="play">HRÁT</button>
+            <button class="tab" data-target="look">VZHLED</button>
+            <button class="tab" data-target="stats">STATISTIKY</button>
+          </nav>
+        </div>
+      </div>
+    </section>
+
+    <section class="controls" aria-label="Ovládání hry">
+      <div class="softkeys">
+        <button class="soft" id="pause">PAUZA</button>
+        <button class="soft" id="restart">NOVÁ HRA</button>
+      </div>
+      <div class="dpad" aria-label="Směr hada">
+        <button class="key up" data-d="up" aria-label="Nahoru">▲</button>
+        <button class="key left" data-d="left" aria-label="Doleva">◀</button>
+        <button class="key right" data-d="right" aria-label="Doprava">▶</button>
+        <button class="key down" data-d="down" aria-label="Dolů">▼</button>
+      </div>
+      <div class="hint">Šipky, WASD nebo přejetí po displeji · Had prochází okrajem</div>
+    </section>
+  </main>
+  <script src="game.js"></script>
+</body>
+</html>
